@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<p><a href="{{ url_for('index') }}">← Görevlere dön</a></p>
+<article class="card">
+  <h1>{{ task.title }}</h1>
+  <span class="status {{ task.status }}">{{ 'Tamamlandı' if task.status == 'completed' else 'Bekliyor' }}</span>
+  <p class="description">{{ task.description or 'Açıklama eklenmemiş.' }}</p>
+  <p class="muted">Görev no: {{ task.id }} · Oluşturulma: {{ task.created_at }} (UTC)</p>
+  <div class="actions"><a class="button" href="{{ url_for('edit_task', task_id=task.id) }}">Düzenle / durum değiştir</a>
+    <form method="post" action="{{ url_for('delete_task', task_id=task.id) }}" onsubmit="return confirm('Bu islemi geri alamazsiniz')"><button class="delete" type="submit">Sil</button></form>
+  </div>
+</article>
+{% endblock %}

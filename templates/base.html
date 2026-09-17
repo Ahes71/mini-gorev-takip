@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mini Görev Takip</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header><div class="container"><a href="{{ url_for('index') }}">Mini Görev Takip</a></div></header>
+  <main class="container">{% block content %}{% endblock %}</main>
+  <footer class="container">Kullandığım Teknolojiler:Python · Flask · SQLite</footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ 'Görevi düzenle' if editing else 'Yeni görev' }}</h1>
+<form class="card" method="post">
+  {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+  <label for="title">Başlık</label>
+  <input id="title" name="title" value="{{ task.title }}" required maxlength="120">
+  <label for="description">Açıklama</label>
+  <textarea id="description" name="description" rows="5" maxlength="2000">{{ task.description }}</textarea>
+  <label for="status">Durum</label>
+  <select id="status" name="status">
+    <option value="pending" {% if task.status == 'pending' %}selected{% endif %}>Bekliyor</option>
+    <option value="completed" {% if task.status == 'completed' %}selected{% endif %}>Tamamlandı</option>
+  </select>
+  <div class="actions"><button type="submit">Kaydet</button><a href="{{ url_for('index') }}">Vazgeç</a></div>
+</form>
+{% endblock %}

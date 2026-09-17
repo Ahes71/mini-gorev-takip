@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="heading"><h1>Kayitli Görevlerim</h1><a class="button" href="{{ url_for('new_task') }}">Yeni görev ekle</a></div>
+<p class="muted">Toplam {{ tasks|length }} görev kayıtlı.</p>
+{% for task in tasks %}
+<article class="card">
+  <div class="heading"><h2><a href="{{ url_for('detail', task_id=task.id) }}">{{ task.title }}</a></h2>
+    <span class="status {{ task.status }}">{{ 'Tamamlandı' if task.status == 'completed' else 'Bekliyor' }}</span></div>
+  <p class="description">{{ task.description or 'Açıklama eklenmemiş.' }}</p>
+  <small>Oluşturulma: {{ task.created_at }} (UTC)</small>
+  <div class="actions">
+    <a href="{{ url_for('detail', task_id=task.id) }}">Detay</a>
+    <a href="{{ url_for('edit_task', task_id=task.id) }}">Düzenle</a>
+    <form method="post" action="{{ url_for('delete_task', task_id=task.id) }}" onsubmit="return confirm('Bu görev silinsin mi?')"><button class="delete" type="submit">Sil</button></form>
+  </div>
+</article>
+{% else %}<div class="card"><p>Henüz görev eklenmedi.</p></div>{% endfor %}
+{% endblock %}
